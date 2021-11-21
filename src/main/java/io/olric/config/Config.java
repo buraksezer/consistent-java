@@ -30,9 +30,13 @@ import io.olric.hash64.Hash64;
 import io.olric.hash64.impl.Hash64Impl;
 
 public class Config {
-    private int replicaCount;
-    private Hash64 hash64;
-    private double loadFactor;
+    private static final int DEFAULT_REPLICA_COUNT = 20;
+    private static final double DEFAULT_LOAD_FACTOR = 1.5;
+    private static final Hash64 DEFAULT_HASH64_IMPL = new Hash64Impl();
+
+    private int replicaCount = DEFAULT_REPLICA_COUNT;
+    private Hash64 hash64 = DEFAULT_HASH64_IMPL;
+    private double loadFactor = DEFAULT_LOAD_FACTOR;
 
     public void setReplicaCount(int replicaCount) {
         this.replicaCount = replicaCount;
@@ -40,7 +44,7 @@ public class Config {
 
     public int getReplicaCount() {
         if (replicaCount == 0) {
-            setReplicaCount(20);
+            setReplicaCount(DEFAULT_REPLICA_COUNT);
         }
         return replicaCount;
     }
@@ -50,9 +54,6 @@ public class Config {
     }
 
     public Hash64 getHash64() {
-        if (hash64 == null) {
-            this.setHash64(new Hash64Impl());
-        }
         return hash64;
     }
 
@@ -62,7 +63,7 @@ public class Config {
 
     public double getLoadFactor() {
         if (this.loadFactor == 0) {
-            this.loadFactor = 1.5;
+            this.loadFactor = DEFAULT_LOAD_FACTOR;
         }
         return this.loadFactor;
     }

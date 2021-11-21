@@ -27,6 +27,7 @@ package io.olric;
 
 import io.olric.config.Config;
 import io.olric.exceptions.EmptyHashRingException;
+import io.olric.exceptions.MemberAlreadyAddedException;
 import io.olric.exceptions.MemberNotFoundException;
 import io.olric.member.Member;
 import io.olric.member.impl.MemberImpl;
@@ -64,6 +65,15 @@ public class ConsistentTest {
 
         Member located = c.locate("foobar");
         assertEquals(m, located);
+    }
+
+    @Test(expected = MemberAlreadyAddedException.class)
+    public void memberAlreadyAddedException() {
+        Consistent c = new Consistent(Config.getConfig());
+
+        Member m = new MemberImpl("node1.olric.io");
+        c.addMember(m);
+        c.addMember(m);
     }
 
     @Test

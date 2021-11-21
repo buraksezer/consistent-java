@@ -48,7 +48,7 @@ public class Consistent {
         this.hashRing = new TreeMap<>();
     }
 
-    public void addMember(Member m) throws MemberAlreadyAddedException {
+    public void addMember(@NotNull Member m) throws MemberAlreadyAddedException {
         if (members.contains(m.name())) {
             throw new MemberAlreadyAddedException();
         }
@@ -96,7 +96,7 @@ public class Consistent {
         return Math.ceil(avgLoad);
     }
 
-    public Member locate(String key) {
+    public Member locate(@NotNull String key) {
         if (this.hashRing.size() == 0) {
            throw new EmptyHashRingException();
         }
@@ -120,7 +120,7 @@ public class Consistent {
         throw new RuntimeException();
     }
 
-    public void incrLoad(Member m) {
+    public void incrLoad(@NotNull Member m) {
         Integer load = loads.get(m);
         if (load == null) {
             throw new MemberNotFoundException();
@@ -130,7 +130,7 @@ public class Consistent {
         totalLoad++;
     }
 
-    public void decrLoad(Member m) {
+    public void decrLoad(@NotNull Member m) {
         Integer load = loads.get(m);
         if (load == null) {
             throw new MemberNotFoundException();
@@ -152,7 +152,7 @@ public class Consistent {
         return new ArrayList<>(loads.keySet());
     }
 
-    public Integer getLoad(Member m) {
+    public Integer getLoad(@NotNull Member m) {
         return loads.get(m);
     }
 }

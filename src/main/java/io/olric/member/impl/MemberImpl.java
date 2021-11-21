@@ -29,4 +29,7 @@ package io.olric.member.impl;
 import io.olric.member.Member;
 
 public record MemberImpl(String name) implements Member {
+    public String name() {
+        return this.name;
+    }
 }
